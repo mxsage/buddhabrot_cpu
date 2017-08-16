@@ -32,7 +32,7 @@ bool parse_input(int& num_threads, int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
 
     int num_threads;
-	std::string filename = "fctl";
+	std::string filename = "chesnut";
 
     if (!parse_input(num_threads, argc, argv)) {
         return EXIT_SUCCESS;
@@ -43,8 +43,8 @@ int main(int argc, char* argv[]) {
 
     // must load hints or compute hints
     std::cout << "Hint stuff." << std::endl;
-    //w.calculate_and_save_hints(num_threads, "./data/mandelbrot_hints.bin");
-    w.read_hints_from_file("./data/mandelbrot_hints.bin");
+    //w.calculate_and_save_hints(num_threads, "./data/chesnut_hints.bin");
+    w.read_hints_from_file("./data/chesnut_hints.bin");
 
 	std::cout << "Computation with " << num_threads << " threads."  << std::endl;
 	w.computation(num_threads);

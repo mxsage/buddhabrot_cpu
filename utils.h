@@ -45,6 +45,7 @@ inline double get_y(const int& j){
 }
 
 inline void recurse(Complex& c, const Complex& o) {
-    c = c*c + o;
+	c = c*c + c + o;
+    //c = c*c + o;
 	//c = c*c*c + Complex{2.0, 0}*c*c + o;
 }

@@ -8,9 +8,10 @@ One hint file may be computed for multiple iterations of the image computation. 
 
 Additionally, a histogram method is used to compute the final brightness of each pixel in the exported image. The darkest 1/256th of the pixels are assigned color (0,0,0), the next 1/256th get color (1,1,1), and so on until the brightest color, (255, 255, 255), is reached.
 
+Tested with clang++ on OSX 10.11.6.
+
 ### Sample output:
 ![Output.](images/sample_0.jpg)
 ![Output.](images/sample_1.jpg)
 ![Output.](images/sample_2.jpg)
-
-Tested with clang++ on OSX 10.11.6.
+![Output.](images/sample_3.jpg)
