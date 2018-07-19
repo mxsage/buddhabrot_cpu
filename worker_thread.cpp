@@ -11,38 +11,45 @@ WorkerThread::WorkerThread(int id, std::vector<Complex>* _hints) :
     mt.seed(seed);
 }
 
-void WorkerThread::start(){
+void WorkerThread::start()
+{
     t = std::thread(&WorkerThread::compute, this);
 }
 
 
-void WorkerThread::record(Complex& o) {
+void WorkerThread::record(Complex& o)
+{
     int d = 0;
 
     Complex c {0.0, 0.0};
 
-    while (!escaped(c) && d < p.depth) {
+    while (!escaped(c) && d < p.depth)
+    {
         recurse(c, o);
 
         int i = get_i(c.r);
         int j = get_j(c.i);
 
-        if (in_bounds(i) && in_bounds(j)) {
-			int index = p.dim*j + i;
+        if (in_bounds(i) && in_bounds(j))
+        {
+            int index = p.dim*j + i;
 
-			auto got = point_map.find(index);
-			if (got == point_map.end()) {
-				point_map.insert({index, 1});
-			} else {
-				got->second++;
-			}
+            auto got = point_map.find(index);
+            if (got == point_map.end())
+            {
+                point_map.insert({index, 1});
+            } else
+            {
+                got->second++;
+            }
         }
 
         d++;
     }
 }
 
-Complex WorkerThread::get_rand() {
+Complex WorkerThread::get_rand()
+{
     int idx = hint_dist(mt);
     Complex hint = hints->at(idx);
 
@@ -51,43 +58,55 @@ Complex WorkerThread::get_rand() {
     return hint;
 }
 
-void WorkerThread::compute() {
+void WorkerThread::compute()
+{
     bool finished = false;
-    while (not finished) {
+
+    while (not finished)
+    {
         finished = iteration();
     }
 }
 
-bool WorkerThread::iteration() {
-    for (int i=0; i<p.samples_per_iteration; i++) {
+bool WorkerThread::iteration()
+{
+    for (int i=0; i<p.samples_per_iteration; i++)
+    {
         Complex cur {0.0, 0.0};
         Complex original = get_rand();
 
-        for (int d=0; d<p.depth; d++) {
+        for (int d=0; d<p.depth; d++)
+        {
             recurse(cur, original);
 
-            if (escaped(cur)) {
-				if (d > p.min_depth) {
-					record(original);
-				}
-				break;
-			}
-		}
-	}
+            if (escaped(cur))
+            {
+                if (d > p.min_depth)
+                {
+                    record(original);
+                }
+                break;
+            }
+        }
+    }
 
     samples_so_far += p.samples_per_iteration;
 
     return samples_so_far >= p.samples;
 }
 
-void WorkerThread::finish(){
-    if (t.joinable()){
+void WorkerThread::finish()
+{
+    if (t.joinable())
+    {
         t.join();
     }
 }
 
-WorkerThread::~WorkerThread() {
-    if (t.joinable()) {
+WorkerThread::~WorkerThread()
+{
+    if (t.joinable())
+    {
         t.join();
     }
 }
