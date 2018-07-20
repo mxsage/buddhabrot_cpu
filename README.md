@@ -1,6 +1,6 @@
 # Multithreaded Buddhabrot Computation
 
-Rendering fractals with the [Buddhabrot technique](https://en.wikipedia.org/wiki/Buddhabrot) discovered by [Melissa Green](http://superliminal.com/fractals/).
+Rendering fractals with the [Buddhabrot technique](https://en.wikipedia.org/wiki/Buddhabrot) discovered by [Melinda Green](http://superliminal.com/fractals/).
 
 An optimization is implemented to compute "hint" points, i. e. points that are likely to produce viable samples. The hint pass recurses every pixel until it escapes or reaches the maximum recursion depth. Only points that escape between the minimum and maximum recursion depth are relevant in later stages. Thus these points are saved as "hints" and are used for later computation of the actual fractal image. In this process, a random hint is selected, moved a "fuzz" amount in the real and complex plane, and then computed as a possible usable point.
 
